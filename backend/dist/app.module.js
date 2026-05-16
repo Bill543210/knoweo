@@ -13,7 +13,14 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
+const search_module_1 = require("./search/search.module");
+const user_progress_module_1 = require("./user-progress/user-progress.module");
+const schools_module_1 = require("./schools/schools.module");
+const companies_module_1 = require("./companies/companies.module");
 const user_entity_1 = require("./users/user.entity");
+const user_progress_entity_1 = require("./user-progress/user-progress.entity");
+const school_entity_1 = require("./schools/school.entity");
+const company_entity_1 = require("./companies/company.entity");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -27,11 +34,15 @@ exports.AppModule = AppModule = __decorate([
                 username: 'postgres',
                 password: '$Language1',
                 database: 'knoweo',
-                entities: [user_entity_1.User],
+                entities: [user_entity_1.User, user_progress_entity_1.UserProgress, school_entity_1.School, company_entity_1.Company],
                 synchronize: true,
             }),
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
+            search_module_1.SearchModule,
+            user_progress_module_1.UserProgressModule,
+            schools_module_1.SchoolsModule,
+            companies_module_1.CompaniesModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

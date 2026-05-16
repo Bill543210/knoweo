@@ -27,6 +27,46 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<User | null> {
-    return this.usersRepository.findOne({ where: { id } });
+    const user = await this.usersRepository.findOne({ where: { id } });
+    if (user) {
+      const { password, ...result } = user as any;
+      return result;
+    }
+    return null;
+  }
+
+  async findPublicById(id: string): Promise<Partial<User> | null> {
+    const user = await this.usersRepository.findOne({ where: { id } });
+    if (!user) return null;
+    return {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      avatarUrl: user.avatarUrl,
+      bio: user.bio,
+      city: user.city,
+      country: user.country,
+      status: user.status,
+      lastSchool: user.lastSchool,
+      educationLevel: user.educationLevel,
+      fieldOfStudy: user.fieldOfStudy,
+      company: user.company,
+      jobTitle: user.jobTitle,
+      yearsOfExperience: user.yearsOfExperience,
+      linkedinUrl: user.linkedinUrl,
+      isScorePublic: user.isScorePublic,
+      isProgressPublic: user.isProgressPublic,
+      createdAt: user.createdAt,
+    };
+  }
+
+  async updateUser(id: string, data: Partial<User>): Promise<User | null> {
+    await this.usersRepository.update(id, data);
+    return this.findById(id);
+  }
+
+  async updateAvatar(id: string, avatarUrl: string): Promise<User | null> {
+    await this.usersRepository.update(id, { avatarUrl });
+    return this.findById(id);
   }
 }
