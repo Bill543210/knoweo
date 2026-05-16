@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import Learn from './pages/Learn';
 import PublicProfile from './pages/PublicProfile';
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
@@ -39,7 +40,7 @@ const App = () => {
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="/profile/:id" element={<PrivateRoute><PublicProfile /></PrivateRoute>} />
-          <Route path="/learn" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/learn" element={<PrivateRoute><Learn /></PrivateRoute>} />
           <Route path="/battles" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/friends" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/leaderboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
