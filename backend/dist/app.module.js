@@ -17,10 +17,14 @@ const search_module_1 = require("./search/search.module");
 const user_progress_module_1 = require("./user-progress/user-progress.module");
 const schools_module_1 = require("./schools/schools.module");
 const companies_module_1 = require("./companies/companies.module");
+const domains_module_1 = require("./domains/domains.module");
+const questions_module_1 = require("./questions/questions.module");
 const user_entity_1 = require("./users/user.entity");
 const user_progress_entity_1 = require("./user-progress/user-progress.entity");
 const school_entity_1 = require("./schools/school.entity");
 const company_entity_1 = require("./companies/company.entity");
+const domain_entity_1 = require("./domains/domain.entity");
+const question_entity_1 = require("./questions/question.entity");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -34,7 +38,7 @@ exports.AppModule = AppModule = __decorate([
                 username: 'postgres',
                 password: '$Language1',
                 database: 'knoweo',
-                entities: [user_entity_1.User, user_progress_entity_1.UserProgress, school_entity_1.School, company_entity_1.Company],
+                entities: [user_entity_1.User, user_progress_entity_1.UserProgress, school_entity_1.School, company_entity_1.Company, domain_entity_1.Domain, question_entity_1.Question],
                 synchronize: true,
             }),
             users_module_1.UsersModule,
@@ -43,6 +47,8 @@ exports.AppModule = AppModule = __decorate([
             user_progress_module_1.UserProgressModule,
             schools_module_1.SchoolsModule,
             companies_module_1.CompaniesModule,
+            domains_module_1.DomainsModule,
+            questions_module_1.QuestionsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

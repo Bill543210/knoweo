@@ -171,22 +171,28 @@ const PublicProfile = () => {
               >
                 {inviteSent ? '✅ Invitation envoyée' : '➕ Envoyer une invitation'}
               </button>
-              {profile?.linkedinUrl && (
-                
-                  href={profile.linkedinUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    display: 'block', textAlign: 'center' as 'center',
-                    backgroundColor: '#0077B5', color: 'white',
-                    borderRadius: radius.md, padding: '10px 20px',
-                    fontSize: '14px', fontWeight: '600', textDecoration: 'none',
-                    whiteSpace: 'nowrap' as 'nowrap',
-                  }}
-                >
-                  🔗 Voir LinkedIn
-                </a>
-              )}
+              {profile?.linkedinUrl && React.createElement(
+  'a',
+  {
+    href: profile.linkedinUrl,
+    target: '_blank',
+    rel: 'noreferrer',
+    style: {
+      display: 'block',
+      textAlign: 'center' as 'center',
+      backgroundColor: '#0077B5',
+      color: 'white',
+      borderRadius: radius.md,
+      padding: '10px 20px',
+      fontSize: '14px',
+      fontWeight: '600',
+      textDecoration: 'none',
+      whiteSpace: 'nowrap' as 'nowrap',
+    },
+  },
+  '🔗 Voir LinkedIn'
+)}
+
             </div>
           </div>
 

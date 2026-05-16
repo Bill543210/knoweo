@@ -8,10 +8,14 @@ import { SearchModule } from './search/search.module';
 import { UserProgressModule } from './user-progress/user-progress.module';
 import { SchoolsModule } from './schools/schools.module';
 import { CompaniesModule } from './companies/companies.module';
+import { DomainsModule } from './domains/domains.module';
+import { QuestionsModule } from './questions/questions.module';
 import { User } from './users/user.entity';
 import { UserProgress } from './user-progress/user-progress.entity';
 import { School } from './schools/school.entity';
 import { Company } from './companies/company.entity';
+import { Domain } from './domains/domain.entity';
+import { Question } from './questions/question.entity';
 
 @Module({
   imports: [
@@ -22,7 +26,7 @@ import { Company } from './companies/company.entity';
       username: 'postgres',
       password: '$Language1',
       database: 'knoweo',
-      entities: [User, UserProgress, School, Company],
+      entities: [User, UserProgress, School, Company, Domain, Question],
       synchronize: true,
     }),
     UsersModule,
@@ -31,6 +35,8 @@ import { Company } from './companies/company.entity';
     UserProgressModule,
     SchoolsModule,
     CompaniesModule,
+    DomainsModule,
+    QuestionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
