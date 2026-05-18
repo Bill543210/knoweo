@@ -60,13 +60,55 @@ export class UsersService {
     };
   }
 
-  async updateUser(id: string, data: Partial<User>): Promise<User | null> {
-    await this.usersRepository.update(id, data);
-    return this.findById(id);
+async updateUser(id: string, data: Partial<User>): Promise<User | null> {
+  const cleaned: any = { ...data };
+
+  // Champs date → null si vide
+  const dateFields = ['dateOfBirth'];
+  for (const field of dateFields) {
+    if (cleaned[field] === '' || cleaned[field] === undefined) {
+      cleaned[field] = null;
+    }
   }
+
+  // Champs integer → null si vide
+  const intFields = ['yearsOfExperience'];
+  for (const field of intFields) {
+    if (cleaned[field] === '' || cleaned[field] === undefined) {
+      cleaned[field] = null;
+    } else if (cleaned[field] !== null) {
+      cleaned[field] = parseInt(cleaned[field], 10);
+      if (isNaN(cleaned[field])) cleaned[field] = null;
+    }
+  }
+
+  // Supprime les champs undefined pour éviter d'écraser des valeurs existantes
+  for (const key of Object.keys(cleaned)) {
+    if (cleaned[key] === undefined) delete cleaned[key];
+  }
+
+  await this.usersRepository.update(id, cleaned);
+  return this.findById(id);
+}
 
   async updateAvatar(id: string, avatarUrl: string): Promise<User | null> {
     await this.usersRepository.update(id, { avatarUrl });
     return this.findById(id);
   }
+
+  async changePassword(
+  id: string,
+  currentPassword: string,
+  newPassword: string,
+): Promise<{ success: boolean }> {
+  const user = await this.usersRepository.findOne({ where: { id } });
+  if (!user || !user.password) throw new Error('User not found');
+
+  const valid = await bcrypt.compare(currentPassword, user.password);
+  if (!valid) throw new Error('Invalid password');
+
+  user.password = await bcrypt.hash(newPassword, 10);
+  await this.usersRepository.save(user);
+  return { success: true };
+}
 }

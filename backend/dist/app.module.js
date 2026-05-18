@@ -19,12 +19,27 @@ const schools_module_1 = require("./schools/schools.module");
 const companies_module_1 = require("./companies/companies.module");
 const domains_module_1 = require("./domains/domains.module");
 const questions_module_1 = require("./questions/questions.module");
+const question_stats_module_1 = require("./question-stats/question-stats.module");
+const user_question_history_module_1 = require("./user-question-history/user-question-history.module");
+const question_reactions_module_1 = require("./question-reactions/question-reactions.module");
+const question_comments_module_1 = require("./question-comments/question-comments.module");
 const user_entity_1 = require("./users/user.entity");
 const user_progress_entity_1 = require("./user-progress/user-progress.entity");
 const school_entity_1 = require("./schools/school.entity");
 const company_entity_1 = require("./companies/company.entity");
 const domain_entity_1 = require("./domains/domain.entity");
 const question_entity_1 = require("./questions/question.entity");
+const question_stat_entity_1 = require("./question-stats/question-stat.entity");
+const user_question_history_entity_1 = require("./user-question-history/user-question-history.entity");
+const question_reaction_entity_1 = require("./question-reactions/question-reaction.entity");
+const question_comment_entity_1 = require("./question-comments/question-comment.entity");
+const comment_reaction_entity_1 = require("./question-comments/comment-reaction.entity");
+const friends_module_1 = require("./friends/friends.module");
+const notifications_module_1 = require("./notifications/notifications.module");
+const friendship_entity_1 = require("./friends/friendship.entity");
+const notification_entity_1 = require("./notifications/notification.entity");
+const user_activity_module_1 = require("./user-activity/user-activity.module");
+const user_activity_entity_1 = require("./user-activity/user-activity.entity");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -38,7 +53,22 @@ exports.AppModule = AppModule = __decorate([
                 username: 'postgres',
                 password: '$Language1',
                 database: 'knoweo',
-                entities: [user_entity_1.User, user_progress_entity_1.UserProgress, school_entity_1.School, company_entity_1.Company, domain_entity_1.Domain, question_entity_1.Question],
+                entities: [
+                    user_entity_1.User,
+                    user_progress_entity_1.UserProgress,
+                    school_entity_1.School,
+                    company_entity_1.Company,
+                    domain_entity_1.Domain,
+                    question_entity_1.Question,
+                    question_stat_entity_1.QuestionStat,
+                    user_question_history_entity_1.UserQuestionHistory,
+                    question_reaction_entity_1.QuestionReaction,
+                    question_comment_entity_1.QuestionComment,
+                    comment_reaction_entity_1.CommentReaction,
+                    friendship_entity_1.Friendship,
+                    notification_entity_1.Notification,
+                    user_activity_entity_1.UserActivity,
+                ],
                 synchronize: true,
             }),
             users_module_1.UsersModule,
@@ -49,6 +79,13 @@ exports.AppModule = AppModule = __decorate([
             companies_module_1.CompaniesModule,
             domains_module_1.DomainsModule,
             questions_module_1.QuestionsModule,
+            question_stats_module_1.QuestionStatsModule,
+            user_question_history_module_1.UserQuestionHistoryModule,
+            question_reactions_module_1.QuestionReactionsModule,
+            question_comments_module_1.QuestionCommentsModule,
+            friends_module_1.FriendsModule,
+            notifications_module_1.NotificationsModule,
+            user_activity_module_1.UserActivityModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

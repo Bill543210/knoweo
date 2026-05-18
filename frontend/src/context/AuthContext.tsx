@@ -6,6 +6,16 @@ interface User {
   firstName: string;
   lastName: string;
   email: string;
+  avatarUrl?: string;
+  bio?: string;
+  city?: string;
+  country?: string;
+  status?: string;
+  jobTitle?: string;
+  company?: string;
+  language?: string;
+  isScorePublic?: boolean;
+  isProgressPublic?: boolean;
 }
 
 interface AuthContextType {
@@ -13,20 +23,25 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   register: (firstName: string, lastName: string, email: string, password: string) => Promise<void>;
   logout: () => void;
+  refreshUser: () => Promise<void>;
   isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser]       = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token     = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
     if (token && savedUser) {
-      setUser(JSON.parse(savedUser));
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch {
+        localStorage.removeItem('user');
+      }
     }
     setIsLoading(false);
   }, []);
@@ -51,8 +66,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
   };
 
+  // Recharge le profil depuis le serveur et met à jour le contexte
+  // Appelé après une modification de profil (photo, infos...)
+  const refreshUser = async () => {
+    try {
+      const res = await api.get('/users/me');
+      setUser(res.data);
+      localStorage.setItem('user', JSON.stringify(res.data));
+    } catch {}
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, refreshUser, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

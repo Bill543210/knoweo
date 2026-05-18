@@ -21,6 +21,15 @@ export class UsersController {
     return this.usersService.updateUser(req.user.sub, body);
   }
 
+  @UseGuards(JwtAuthGuard)
+    @Put('me/password')
+    async changePassword(
+    @Request() req: any,
+    @Body() body: { currentPassword: string; newPassword: string },
+    ) {
+    return this.usersService.changePassword(req.user.sub, body.currentPassword, body.newPassword);
+    }
+
   @Get(':id/public')
   async getPublicProfile(@Param('id') id: string) {
     return this.usersService.findPublicById(id);

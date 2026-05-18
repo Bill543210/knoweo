@@ -8,6 +8,10 @@ export class Domain {
   @Column({ unique: true })
   slug: string;
 
+  // Catégorie parente : 'finance', 'data', 'economie', 'strategy', etc.
+  @Column({ default: 'finance' })
+  category: string;
+
   @Column()
   nameFr: string;
 

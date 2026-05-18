@@ -1,18 +1,18 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 export enum UserStatus {
-  STUDENT = 'student',
+  STUDENT      = 'student',
   PROFESSIONAL = 'professional',
-  OTHER = 'other',
+  OTHER        = 'other',
 }
 
 export enum EducationLevel {
-  BACHELOR = 'bachelor',
-  MASTER = 'master',
+  BACHELOR           = 'bachelor',
+  MASTER             = 'master',
   MASTER_SPECIALIZED = 'master_specialized',
-  MBA = 'mba',
-  PHD = 'phd',
-  OTHER = 'other',
+  MBA                = 'mba',
+  PHD                = 'phd',
+  OTHER              = 'other',
 }
 
 @Entity()
@@ -47,7 +47,7 @@ export class User {
   @Column({ default: false })
   isProgressPublic: boolean;
 
-  // Infos personnelles
+  // ── Infos personnelles ────────────────────────────────────
   @Column({ nullable: true })
   dateOfBirth: Date;
 
@@ -63,7 +63,7 @@ export class User {
   @Column({ nullable: true, type: 'varchar', default: UserStatus.STUDENT })
   status: string;
 
-  // Infos études
+  // ── Infos études ──────────────────────────────────────────
   @Column({ nullable: true })
   lastSchool: string;
 
@@ -73,7 +73,7 @@ export class User {
   @Column({ nullable: true })
   fieldOfStudy: string;
 
-  // Infos professionnelles
+  // ── Infos professionnelles ────────────────────────────────
   @Column({ nullable: true })
   company: string;
 
@@ -97,6 +97,24 @@ export class User {
 
   @Column({ nullable: true, default: 'FR' })
   phoneCountryCode: string;
+
+  // ── Préférences app ───────────────────────────────────────
+  // Objectif quotidien de questions (5 / 10 / 20 / 30)
+  @Column({ default: 10 })
+  dailyGoal: number;
+
+  // Préférences notifications
+  @Column({ default: true })
+  notifFriendRequest: boolean;
+
+  @Column({ default: true })
+  notifBadge: boolean;
+
+  @Column({ default: true })
+  notifStreak: boolean;
+
+  @Column({ default: true })
+  notifComment: boolean;
 
   @CreateDateColumn()
   createdAt: Date;

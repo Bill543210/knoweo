@@ -36,6 +36,13 @@ export class Question {
   @Column({ default: true })
   isActive: boolean;
 
+  @Column({ nullable: true })
+  subDomain: string;
+
+  // Questions typiques d'entretien (❓ dans le texte ou taggées manuellement)
+  @Column({ default: false })
+  isInterviewQuestion: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 }

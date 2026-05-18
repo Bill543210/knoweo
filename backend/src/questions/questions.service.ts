@@ -81,6 +81,34 @@ export class QuestionsService {
     return this.questionsRepository.findOne({ where: { id } });
   }
 
+  async findForInterview(
+  domainIds: string[],
+  levels: number[],
+  count: number,
+  excludeIds: string[] = [],
+): Promise<Question[]> {
+  const query = this.questionsRepository
+    .createQueryBuilder('question')
+    .where('question.domainId IN (:...domainIds)', { domainIds })
+    .andWhere('question.isActive = true')
+    .andWhere('question.isInterviewQuestion = true');
+
+  if (levels.length > 0) {
+    query.andWhere('question.level IN (:...levels)', { levels });
+  }
+
+  if (excludeIds.length > 0) {
+    query.andWhere('question.id NOT IN (:...excludeIds)', { excludeIds });
+  }
+
+  const questions = await query.getMany();
+
+  // Mélange et limite
+  return questions
+    .sort(() => Math.random() - 0.5)
+    .slice(0, Math.min(count, 30));
+}
+
   async create(data: Partial<Question>): Promise<Question> {
     const question = this.questionsRepository.create(data);
     return this.questionsRepository.save(question);
